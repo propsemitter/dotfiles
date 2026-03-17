@@ -7,3 +7,14 @@ window-padding-x = 16
 window-padding-y = 16
 
 keybind = cmd+k=text:clear\r
+term = xterm-256color
+
+cursor-style = block
+cursor-style-blink = true
+
+custom-shader = shaders/cursor_warp.glsl
+custom-shader = shaders/cursor_tail.glsl
+custom-shader-animation = always
+
+background-opacity = 0.95
+background-blur = macos-glass-clear
