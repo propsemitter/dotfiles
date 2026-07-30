@@ -5,6 +5,9 @@ return {
       "nvim-lua/plenary.nvim",
     },
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      command = "agy",
+    },
+
   },
 }
