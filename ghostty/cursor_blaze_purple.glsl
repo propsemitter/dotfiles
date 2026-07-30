@@ -68,11 +68,12 @@ vec2 getRectangleCenter(vec4 rectangle) {
     return vec2(rectangle.x + (rectangle.z / 2.), rectangle.y - (rectangle.w / 2.));
 }
 
-// Custom Catppuccin Mocha / Purple & White palette
-const vec4 TRAIL_COLOR = vec4(1.0, 1.0, 1.0, 1.0); // Pure White core
+// Vibrant Saturated Purple & Electric Violet palette
+const vec4 TRAIL_COLOR = vec4(0.80, 0.40, 1.0, 1.0); // Vibrant Violet / Purple core
 const vec4 CURRENT_CURSOR_COLOR = TRAIL_COLOR;
 const vec4 PREVIOUS_CURSOR_COLOR = TRAIL_COLOR;
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.796, 0.651, 0.969, 1.0); // Catppuccin Mauve / Purple (#cba6f7)
+const vec4 TRAIL_COLOR_ACCENT = vec4(0.55, 0.15, 1.0, 1.0); // Electric Deep Purple accent
+
 const float DURATION = .5;
 const float OPACITY = .2;
 const float DRAW_THRESHOLD = 1.5;
