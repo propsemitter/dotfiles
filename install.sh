@@ -31,6 +31,10 @@ echo "║     idaldu/dotfiles setup     ║"
 echo "╚═══════════════════════════════╝"
 echo ""
 
+# Update git submodules
+git -C "$DOTFILES" submodule update --init --recursive
+
+
 # ── Neovim ──────────────────────────────────────────────────────────────────
 info "Setting up Neovim (LazyVim)..."
 backup_and_link "$DOTFILES/nvim" "$HOME/.config/nvim"
