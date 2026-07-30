@@ -22,3 +22,25 @@ map("v", "<Up>", "<cmd>echom " .. msg .. "<CR>", { noremap = true })
 map("v", "<Down>", "<cmd>echom " .. msg .. "<CR>", { noremap = true })
 map("v", "<Left>", "<cmd>echom " .. msg .. "<CR>", { noremap = true })
 map("v", "<Right>", "<cmd>echom " .. msg .. "<CR>", { noremap = true })
+
+-- Copy file path keymaps
+map("n", "<leader>cr", function()
+  local path = vim.fn.expand("%")
+  if path ~= "" then
+    vim.fn.setreg("+", path)
+    vim.notify("Copied relative path: " .. path, vim.log.levels.INFO)
+  else
+    vim.notify("No file name for current buffer", vim.log.levels.WARN)
+  end
+end, { desc = "Copy relative path" })
+
+map("n", "<leader>cp", function()
+  local path = vim.fn.expand("%:p")
+  if path ~= "" then
+    vim.fn.setreg("+", path)
+    vim.notify("Copied absolute path: " .. path, vim.log.levels.INFO)
+  else
+    vim.notify("No file name for current buffer", vim.log.levels.WARN)
+  end
+end, { desc = "Copy absolute path" })
+
