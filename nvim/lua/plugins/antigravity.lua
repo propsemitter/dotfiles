@@ -6,12 +6,17 @@ return {
     },
     event = "VeryLazy",
     opts = {
-      command = "agy",
+      cmd = "agy",
+      style = "float",
+      width_ratio = 0.85,
+      height_ratio = 0.85,
+      border = "rounded",
     },
     keys = {
-      { "<leader>ag", "<cmd>AntigravityToggle<cr>", desc = "Toggle Antigravity" },
-      { "<leader>ac", "<cmd>AntigravityConnect<cr>", desc = "Antigravity Connect" },
+      { "<leader>ag", "<cmd>lua require('antigravity').toggle()<cr>", desc = "Toggle Antigravity Float" },
+      { "<leader>as", "<cmd>lua require('antigravity').ask_selection()<cr>", mode = { "n", "v" }, desc = "Send selection to Antigravity" },
     },
+
 
 
   },
