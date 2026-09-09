@@ -1,34 +1,24 @@
 return {
-  -- Install eslint_d via Mason
   {
-    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "eslint_d" })
-    end,
-  },
+      opts.servers = opts.servers or {}
+      opts.servers.eslint = vim.tbl_deep_extend("force", opts.servers.eslint or {}, {
+        settings = {
+          workingDirectories = { mode = "auto" },
+          format = true,
+        },
+      })
 
-  -- Override conform.nvim to use eslint_d for JS/TS/Vue files
-  {
-    "stevearc/conform.nvim",
-    opts = function(_, opts)
-      opts.formatters_by_ft = opts.formatters_by_ft or {}
-
-      local js_fts = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-        "vue",
-      }
-
-      for _, ft in ipairs(js_fts) do
-        opts.formatters_by_ft[ft] = { "eslint_d" }
+      opts.setup = opts.setup or {}
+      opts.setup.eslint = function()
+        LazyVim.format.register(LazyVim.lsp.formatter({
+          name = "eslint: lsp",
+          primary = true,
+          priority = 300,
+          filter = "eslint",
+        }))
       end
-
-      return opts
     end,
   },
 }
