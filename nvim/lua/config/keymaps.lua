@@ -44,3 +44,24 @@ end, { desc = "Toggle spell check" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Toggle inline red/green diff directly in the buffer (no split)
+map("n", "<leader>ght", function()
+  local gs = require("gitsigns")
+  local shown = gs.toggle_deleted()
+  gs.toggle_word_diff(shown)
+end, { desc = "Toggle inline diff (red/green)" })
+
+-- Toggle Diffview side-by-side (overrides snacks modal diff)
+local function toggle_diffview()
+  local ok, dv_lib = pcall(require, "diffview.lib")
+  if ok and #dv_lib.views > 0 then
+    vim.cmd("DiffviewClose")
+  else
+    vim.cmd("DiffviewOpen")
+  end
+end
+
+map("n", "<leader>gd", toggle_diffview, { desc = "Toggle Diffview (Side-by-Side)" })
+map("n", "<leader>gv", toggle_diffview, { desc = "Toggle Diffview (Side-by-Side)" })
+map("n", "<leader>gD", "<cmd>DiffviewClose<cr>", { desc = "Diffview: Close" })

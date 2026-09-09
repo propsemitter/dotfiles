@@ -1,16 +1,17 @@
 # dotfiles
 
-Personal configuration for **Neovim** (LazyVim), **tmux**, **Yazi**, and **Zsh**.
+Personal configuration for **Neovim** (LazyVim), **Herdr**, **tmux**, **Yazi**, and **Zsh**.
 
 ## What's included
 
 | Tool | Config |
 |------|--------|
-| [Neovim](https://neovim.io) | LazyVim + extras: TypeScript, Vue, Copilot, JSON + ESLint formatting via `eslint_d` |
+| [Neovim](https://neovim.io) | LazyVim + extras: TypeScript, Vue, Copilot, JSON, ESLint formatting via `eslint_d`, and Herdr agent annotations |
+| [Herdr](https://herdr.dev) | Runtime for sending queued Neovim code annotations to an Oh My Pi agent pane |
 | [tmux](https://github.com/tmux/tmux) | Catppuccin Mocha theme, sensible keymaps, mouse support |
 | [Yazi](https://github.com/sxyazi/yazi) | Catppuccin Mocha theme |
 | [Ghostty](https://ghostty.org) | IosevkaTerm Nerd Font, Catppuccin Mocha, hidden titlebar |
-| [Oh My Pi](https://github.com/can1357/oh-my-pi) | Agent, TUI, frontend LSP, and official Figma MCP settings |
+| [Oh My Pi](https://github.com/can1357/oh-my-pi) | Agent, TUI, frontend LSP, official Figma MCP settings, and [Plannotator](https://github.com/backnotprop/plannotator) plan mode |
 | [Zsh](https://www.zsh.org/) | `ompw` wrapper that keeps Oh My Pi awake while it runs |
 
 ## Install
@@ -23,7 +24,7 @@ chmod +x install.sh
 ```
 
 The script creates symlinks and backs up any existing linked configs to `~/.dotfiles-backup-<timestamp>/`.
-The OMP repository configs are linked to `~/.omp/agent/config.yml`, `~/.omp/agent/lsp.json`, and `~/.omp/agent/mcp.json`; runtime databases, logs, and caches remain outside the repository.
+The OMP repository configs are linked to `~/.omp/agent/config.yml`, `~/.omp/agent/lsp.json`, and `~/.omp/agent/mcp.json`; the Plannotator extension is installed through OMP's plugin manager. Runtime databases, logs, caches, and installed plugin files remain outside the repository.
 
 ### Zsh and `ompw`
 
@@ -49,7 +50,7 @@ Install these first:
 
 ```bash
 # macOS
-brew install neovim tmux yazi ghostty node git ripgrep fd lazygit
+brew install neovim herdr tmux yazi ghostty node git ripgrep fd lazygit
 
 # Neovim extras (for LazyVim)
 brew install luarocks stylua
@@ -60,7 +61,7 @@ The current `typescript-language-server` requires Node.js 22.22.2 or newer.
 ### After install
 
 - **Neovim** — open `nvim`, plugins install automatically via lazy.nvim. Run `:MasonInstall eslint_d` once for ESLint formatting.
-- **Oh My Pi** — frontend LSP servers are installed globally through npm; project-local binaries in `node_modules/.bin` still take precedence. Complete the [Figma MCP setup](#figma-mcp) on each machine.
+- **Oh My Pi** — frontend LSP servers are installed globally through npm; project-local binaries in `node_modules/.bin` still take precedence. Start with `omp --plan`, or toggle Plannotator during a session with `/plannotator-plan-mode` or `Ctrl+Alt+P`. Complete the [Figma MCP setup](#figma-mcp) on each machine.
 - **tmux** — press `C-s + I` (prefix + I) to install plugins (catppuccin theme).
 - **Zsh / `ompw`** — run `ompw` with the same arguments as `omp`; it keeps the system awake during the agent run.
 - **Yazi** — runs as-is with Catppuccin theme.
@@ -71,6 +72,33 @@ The current `typescript-language-server` requires Node.js 22.22.2 or newer.
 - `lazyvim.plugins.extras.lang.json`
 - `lazyvim.plugins.extras.lang.typescript`
 - `lazyvim.plugins.extras.lang.vue`
+
+## Neovim annotations for Herdr agents
+
+The Neovim annotation half is installed through lazy.nvim; the Herdr workspace
+sidebar/picker plugin is intentionally not installed, so there is no Herdr-side
+sidebar shortcut.
+
+Neovim must run inside a Herdr pane so it can discover and target the agent in
+the same workspace.
+
+- `<leader>rc` — add a popup comment for the current line or visual selection.
+- `<leader>rl` — list, edit, or delete queued comments.
+- `<leader>rs` — send all queued comments to the Herdr agent and auto-submit the prompt. A successful submission clears the queue.
+
+On macOS, Neovim switches to the English `ABC` input source on focus/window
+entry and after leaving Insert mode when `macism` or `im-select` is installed.
+The autocmd is non-blocking and safely does nothing when neither helper is
+available.
+
+Install the preferred macOS helper with:
+
+```bash
+brew tap laishulu/homebrew
+brew install macism
+```
+
+An existing `im-select` installation is also supported as a fallback.
 
 ## Oh My Pi frontend LSP
 

@@ -1,58 +1,45 @@
 return {
-  -- 1. Тема Catppuccin
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    opts = {
-      flavour = "mocha",
-      transparent_background = false,
-      no_italic = true,
-      color_overrides = {
-        mocha = {
-          base = "#111111",
-          mantle = "#0D0D0D",
-          crust = "#090909",
-          surface0 = "#1A1A1A",
-          surface1 = "#222222",
-          overlay0 = "#666666",
-          text = "#E8E8E8",
-          subtext0 = "#B8B8B8",
-          peach = "#FF9F43",
-          yellow = "#FFB454",
-        },
-      },
-      integrations = {
-        lualine = true,
-        snacks = true,
-        mini_icons = true,
-        native_lsp = { enabled = true },
-        telescope = { enabled = true },
-      },
-      custom_highlights = function(colors)
-        return {
-          -- ОСТАВЛЯЕМ фон для подсказок и меню
-          Pmenu = { bg = colors.crust },
-          PmenuSel = { bg = colors.surface0, fg = colors.peach },
-          NormalFloat = { bg = colors.crust },
-          FloatBorder = { fg = colors.surface0, bg = colors.crust },
-        }
-      end,
-    },
-  },
-
-  -- 2. Иконки
   {
     "nvim-mini/mini.icons",
     opts = { style = "glyph" },
   },
 
-  -- 3. Статус-бар (Круглые пилюли)
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function(_, opts)
-      opts.options.theme = "auto"
+      opts.options.theme = {
+        normal = {
+          a = { fg = "#101114", bg = "#89A9C9", gui = "bold" },
+          b = { fg = "#C5CBD5", bg = "#252A33" },
+          c = { fg = "#B4BFCE", bg = "#171A20" },
+        },
+        insert = {
+          a = { fg = "#101114", bg = "#9ECB8B", gui = "bold" },
+          b = { fg = "#C5CBD5", bg = "#252A33" },
+          c = { fg = "#B4BFCE", bg = "#171A20" },
+        },
+        visual = {
+          a = { fg = "#101114", bg = "#89A9C9", gui = "bold" },
+          b = { fg = "#C5CBD5", bg = "#252A33" },
+          c = { fg = "#B4BFCE", bg = "#171A20" },
+        },
+        replace = {
+          a = { fg = "#101114", bg = "#E58A93", gui = "bold" },
+          b = { fg = "#C5CBD5", bg = "#252A33" },
+          c = { fg = "#B4BFCE", bg = "#171A20" },
+        },
+        command = {
+          a = { fg = "#101114", bg = "#A9C4E4", gui = "bold" },
+          b = { fg = "#C5CBD5", bg = "#252A33" },
+          c = { fg = "#B4BFCE", bg = "#171A20" },
+        },
+        inactive = {
+          a = { fg = "#8993A3", bg = "#171A20" },
+          b = { fg = "#8993A3", bg = "#171A20" },
+          c = { fg = "#697486", bg = "#111318" },
+        },
+      }
       opts.options.component_separators = ""
       opts.options.section_separators = ""
 
@@ -72,11 +59,5 @@ return {
       }
       return opts
     end,
-  },
-
-  -- 4. LazyVim Colorscheme
-  {
-    "LazyVim/LazyVim",
-    opts = { colorscheme = "catppuccin" },
   },
 }

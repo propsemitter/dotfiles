@@ -91,6 +91,16 @@ backup_and_link "$DOTFILES/omp/agent/config.yml" "$HOME/.omp/agent/config.yml"
 backup_and_link "$DOTFILES/omp/agent/lsp.json" "$HOME/.omp/agent/lsp.json"
 backup_and_link "$DOTFILES/omp/agent/mcp.json" "$HOME/.omp/agent/mcp.json"
 
+command -v omp >/dev/null 2>&1 || error "Oh My Pi is required before installing its plugins"
+
+if ! omp plugin list --json | grep -Fq '"@plannotator/pi-extension"'; then
+  info "Installing Plannotator plan mode for OMP..."
+  omp plugin install npm:@plannotator/pi-extension
+  success "Plannotator plan mode installed"
+else
+  success "Plannotator plan mode already installed"
+fi
+
 LSP_BINARIES=(
   tsc
   typescript-language-server

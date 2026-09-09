@@ -6,16 +6,16 @@ return {
 
       local function setup_hl()
         local hls = {
-          TailwindVariant = { fg = "#7dd3fc" }, -- Sky 300 (Soft Blue)
-          TailwindBracket = { fg = "#94a3b8" }, -- Slate 400
-          TailwindImportant = { fg = "#fda4af" }, -- Rose 300 (Soft Red)
-          TailwindProperty = { fg = "#f9a8d4" }, -- Pink 300
-          TailwindValue = { fg = "#fcd34d" }, -- Amber 300
-          TailwindSelector = { fg = "#5eead4" }, -- Teal 300
-          TailwindUtility = { fg = "#a5b4fc" }, -- Indigo 300 (Soft Purple/Blue)
-          TailwindColorGroup = { fg = "#d8b4fe" }, -- Purple 300 (Soft Purple)
-          TailwindSizeGroup = { fg = "#fef08a" }, -- Yellow 200 (Soft Yellow)
-          TailwindLayoutGroup = { fg = "#86efac" }, -- Green 300 (Soft Green)
+          TailwindVariant = { fg = "#89A9C9" }, -- Muted blue
+          TailwindBracket = { fg = "#8993A3" }, -- Muted gray
+          TailwindImportant = { fg = "#E58A93" }, -- Muted red
+          TailwindProperty = { fg = "#89A9C9" }, -- Light blue
+          TailwindValue = { fg = "#A9C4E4" }, -- Bright light blue
+          TailwindSelector = { fg = "#79B7B8" }, -- Muted cyan
+          TailwindUtility = { fg = "#A9C4E4" }, -- Light blue
+          TailwindColorGroup = { fg = "#89A9C9" }, -- Light blue
+          TailwindSizeGroup = { fg = "#A9C4E4" }, -- Bright light blue
+          TailwindLayoutGroup = { fg = "#9ECB8B" }, -- Muted green
         }
         for name, opts in pairs(hls) do
           vim.api.nvim_set_hl(0, name, opts)

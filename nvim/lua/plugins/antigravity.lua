@@ -30,9 +30,5 @@ return {
       { "<c-g>", "<cmd>lua require('antigravity').toggle()<cr>", mode = { "n", "t" }, desc = "Toggle Antigravity Terminal" },
       { "<leader>as", "<cmd>lua require('antigravity').ask_selection()<cr>", mode = { "n", "v" }, desc = "Send selection to Antigravity" },
     },
-
-
-
-
   },
 }
