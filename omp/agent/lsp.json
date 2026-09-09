@@ -1,0 +1,70 @@
+{
+  "servers": {
+    "typescript-language-server": {
+      "rootMarkers": ["package.json", "tsconfig.json", "jsconfig.json"]
+    },
+    "typescript-native": {
+      "rootMarkers": ["package.json", "tsconfig.json", "jsconfig.json"]
+    },
+    "eslint": {
+      "rootMarkers": [
+        ".eslintrc",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.json",
+        ".eslintrc.yml",
+        "eslint.config.js",
+        "eslint.config.mjs",
+        "eslint.config.cjs",
+        "eslint.config.ts",
+        "eslint.config.mts",
+        "eslint.config.cts"
+      ]
+    },
+    "vscode-html-language-server": {
+      "command": "vscode-html-language-server",
+      "args": ["--stdio"],
+      "fileTypes": [".html", ".htm"],
+      "rootMarkers": ["package.json", ".git"],
+      "initOptions": {
+        "provideFormatter": true
+      }
+    },
+    "vscode-css-language-server": {
+      "command": "vscode-css-language-server",
+      "args": ["--stdio"],
+      "fileTypes": [".css", ".scss", ".sass", ".less"],
+      "rootMarkers": ["package.json", ".git"],
+      "initOptions": {
+        "provideFormatter": true
+      }
+    },
+    "vscode-json-language-server": {
+      "command": "vscode-json-language-server",
+      "args": ["--stdio"],
+      "fileTypes": [".json", ".jsonc"],
+      "rootMarkers": ["package.json", ".git"],
+      "initOptions": {
+        "provideFormatter": true
+      }
+    },
+    "tailwindcss": {
+      "rootMarkers": [
+        "tailwind.config.js",
+        "tailwind.config.ts",
+        "tailwind.config.mjs",
+        "tailwind.config.cjs",
+        "package.json"
+      ]
+    },
+    "vue-language-server": {
+      "rootMarkers": ["vue.config.js", "nuxt.config.js", "nuxt.config.ts", "package.json"]
+    },
+    "yamlls": {
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "fileTypes": [".yaml", ".yml"],
+      "rootMarkers": ["package.json", ".git"]
+    }
+  }
+}
