@@ -14,6 +14,11 @@ backup_and_link() {
   local src="$1"
   local dest="$2"
 
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    success "Already linked $dest → $src"
+    return
+  fi
+
   if [ -e "$dest" ] || [ -L "$dest" ]; then
     mkdir -p "$BACKUP_DIR"
     warning "Backing up existing $dest → $BACKUP_DIR/"
@@ -58,6 +63,67 @@ backup_and_link "$DOTFILES/yazi" "$HOME/.config/yazi"
 # ── Ghostty ─────────────────────────────────────────────────────────────────
 info "Setting up Ghostty..."
 backup_and_link "$DOTFILES/ghostty" "$HOME/.config/ghostty"
+
+# ── Zsh ─────────────────────────────────────────────────────────────────────
+info "Setting up Zsh..."
+backup_and_link "$DOTFILES/zsh/omp.zsh" "$HOME/.config/zsh/omp.zsh"
+
+if [ ! -e "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+  touch "$HOME/.zshrc"
+  success "Created $HOME/.zshrc"
+fi
+
+ZSH_OMP_SOURCE='[ -f "$HOME/.config/zsh/omp.zsh" ] && source "$HOME/.config/zsh/omp.zsh"'
+if ! grep -Fqx "$ZSH_OMP_SOURCE" "$HOME/.zshrc"; then
+  if [ -s "$HOME/.zshrc" ]; then
+    printf '\n%s\n' "$ZSH_OMP_SOURCE" >> "$HOME/.zshrc"
+  else
+    printf '%s\n' "$ZSH_OMP_SOURCE" >> "$HOME/.zshrc"
+  fi
+  success "Added ompw to $HOME/.zshrc"
+else
+  success "ompw already configured in $HOME/.zshrc"
+fi
+
+# ── Oh My Pi ────────────────────────────────────────────────────────────────
+info "Setting up Oh My Pi..."
+backup_and_link "$DOTFILES/omp/agent/config.yml" "$HOME/.omp/agent/config.yml"
+backup_and_link "$DOTFILES/omp/agent/lsp.json" "$HOME/.omp/agent/lsp.json"
+backup_and_link "$DOTFILES/omp/agent/mcp.json" "$HOME/.omp/agent/mcp.json"
+
+LSP_BINARIES=(
+  tsc
+  typescript-language-server
+  vue-language-server
+  vscode-eslint-language-server
+  vscode-html-language-server
+  vscode-css-language-server
+  vscode-json-language-server
+  tailwindcss-language-server
+  yaml-language-server
+)
+
+missing_lsp_binaries=()
+for binary in "${LSP_BINARIES[@]}"; do
+  if ! command -v "$binary" >/dev/null 2>&1; then
+    missing_lsp_binaries+=("$binary")
+  fi
+done
+
+if [ "${#missing_lsp_binaries[@]}" -gt 0 ]; then
+  command -v npm >/dev/null 2>&1 || error "npm is required to install OMP language servers"
+  info "Installing OMP language servers (missing: ${missing_lsp_binaries[*]})..."
+  npm install --global \
+    typescript \
+    typescript-language-server \
+    @vue/language-server \
+    vscode-langservers-extracted \
+    @tailwindcss/language-server \
+    yaml-language-server
+  success "OMP language servers installed"
+else
+  success "OMP language servers already installed"
+fi
 
 # ── Done ────────────────────────────────────────────────────────────────────
 echo ""

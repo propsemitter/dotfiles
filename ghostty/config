@@ -1,13 +1,37 @@
 font-family = IosevkaTerm Nerd Font
-font-size = 14
+font-size = 15
+font-style = "Light"
 macos-titlebar-style = hidden
 theme = Catppuccin Mocha
+background = #111111
+foreground = #E8E8E8
+cursor-color = #FF9F43
+cursor-text = #111111
+selection-background = #2A1808
+selection-foreground = #FFE6CC
+palette = 0=#111111
+palette = 1=#E06C75
+palette = 2=#98C379
+palette = 3=#D19A66
+palette = 4=#61AFEF
+palette = 5=#C678DD
+palette = 6=#56B6C2
+palette = 7=#D0D0D0
+palette = 8=#5C6370
+palette = 9=#F07178
+palette = 10=#A8D18D
+palette = 11=#FFB454
+palette = 12=#74B9FF
+palette = 13=#D98CFF
+palette = 14=#67D6D6
+palette = 15=#F4F4F4
 
-window-padding-x = 16
-window-padding-y = 16
+# Ровные и аккуратные отступы
+window-padding-x = 12
+window-padding-y = 12
+window-padding-balance = true
 
 keybind = cmd+k=text:clear\r
-term = xterm-256color
 
 cursor-style = block
 cursor-style-blink = true
@@ -15,6 +39,6 @@ cursor-style-blink = true
 custom-shader = cursor_blaze_purple.glsl
 custom-shader-animation = true
 
-
-background-opacity = 0.95
-background-blur = macos-glass-clear
+term = xterm-ghostty
+focus-follows-mouse = true
+window-vsync = true

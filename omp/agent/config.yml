@@ -1,0 +1,43 @@
+symbolPreset: nerd
+composer:
+  shape: pi
+theme:
+  dark: dark-taiga
+  light: light
+setupVersion: 2
+modelRoles:
+  plan: openai-codex/gpt-5.6-sol:high
+  default: openai-codex/gpt-5.6-luna:high
+browser:
+  headless: true
+colorBlindMode: true
+statusLine:
+  preset: compact
+  sessionAccent: false
+  transparent: true
+  compactThinkingLevel: true
+tui:
+  textSizing: false
+dev:
+  autoqaConsent: granted
+skills:
+  customDirectories:
+    - ~/.agents/skills/devolution-team
+lsp:
+  enabled: true
+  lazy: true
+  diagnosticsOnWrite: true
+  formatOnWrite: true
+task:
+  agentModelOverrides:
+    reviewer: openai-codex/gpt-5.6-sol
+    task: openai-codex/gpt-5.6-luna
+  disabledAgents:
+    []
+  agentPrewalk:
+    reviewer: openai-codex/gpt-5.6-luna
+memory:
+  backend: local
+autolearn:
+  enabled: true
+  autoContinue: true

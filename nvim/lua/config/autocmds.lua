@@ -18,3 +18,20 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     end
   end,
 })
+
+local input_source_switcher = "/opt/homebrew/bin/macism"
+
+local function set_english_input_source()
+  if vim.fn.executable(input_source_switcher) == 1 then
+    vim.fn.jobstart({
+      input_source_switcher,
+      "com.apple.keylayout.ABC",
+      "0",
+    }, { detach = true })
+  end
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter", "FocusGained", "InsertLeave", "CmdlineLeave" }, {
+  group = vim.api.nvim_create_augroup("english_input_source", { clear = true }),
+  callback = set_english_input_source,
+})
